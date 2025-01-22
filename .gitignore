@@ -1,0 +1,17 @@
+/.vscode
+/Assembly-CSharp.csproj
+/Library
+/Logs
+/Packages
+/Pacman Infinite.sln
+/ProjectSettings
+/Temp
+/Unity.2D.Sprite.Editor.csproj
+/Unity.2D.Tilemap.Editor.csproj
+/Unity.Multiplayer.Center.Common.csproj
+/Unity.Multiplayer.Center.Editor.csproj
+/Unity.TextMeshPro.csproj
+/Unity.TextMeshPro.Editor.csproj
+/UnityEditor.UI.csproj
+/UnityEngine.UI.csproj
+/UserSettings
