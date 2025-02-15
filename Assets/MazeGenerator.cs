@@ -7,7 +7,7 @@ public class MazeGenerator : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        MakeSomeRandomWalls();
+        MakeSomeRandomCells();
     }
 
     // Update is called once per frame
@@ -15,40 +15,30 @@ public class MazeGenerator : MonoBehaviour
     {
         
     }
-
-    void MakeSomeRandomWalls()
+    void MakeSomeRandomCells()
     {
-        Vector2 mazeCellPos = new Vector2 (Random.Range(-7, -1), Random.Range(1, 4));
-        Vector2 scaleChange = new Vector2 (Random.Range(0, 3), Random.Range(0, 3));
-        Vector2 cellScale = transform.localScale;
-        int randomCount = Random.Range(2, 5);
+        Vector2 mazeCellPos = new Vector2 (Random.Range(-7, -1), Random.Range(1, 5));
+
+        int randomCount = Random.Range(2, 4);
 
         for (int i = 0; i < randomCount; i++)
         {
-            GameObject prefabInst = Instantiate(_mazeCellPrefab, mazeCellPos, Quaternion.identity);
+            GameObject mazeCell = Instantiate(_mazeCellPrefab, mazeCellPos, Quaternion.identity);
+            GameObject rightCopy = Instantiate(_mazeCellPrefab, new Vector2(-mazeCellPos.x, mazeCellPos.y), Quaternion.identity);
+            GameObject bottomCopy = Instantiate(_mazeCellPrefab, new Vector2(mazeCellPos.x, -mazeCellPos.y), Quaternion.identity);
+            GameObject bottomRightCopy = Instantiate(_mazeCellPrefab, new Vector2(-mazeCellPos.x, -mazeCellPos.y), Quaternion.identity);
             
-            if (scaleChange.x == 0 || scaleChange.y == 0)
-            {
-                prefabInst.transform.localScale = (Vector2)prefabInst.transform.localScale + (Vector2)scaleChange;
-            }
-
-            Instantiate(prefabInst, new Vector2(-mazeCellPos.x, mazeCellPos.y), Quaternion.identity);
-            Instantiate(prefabInst, new Vector2(mazeCellPos.x, -mazeCellPos.y), Quaternion.identity);
-            Instantiate(prefabInst, new Vector2(-mazeCellPos.x, -mazeCellPos.y), Quaternion.identity);
-
             mazeCellPos = (Vector2)mazeCellPos + new Vector2(2, 2);
-            if (mazeCellPos.y > 4)
+
+            if ((mazeCellPos.y > 5 || mazeCellPos.x < -8))
             {
-                mazeCellPos = (Vector2)mazeCellPos + new Vector2(0, -4);
-            }
-            if (mazeCellPos.x < -7)
-            {
-                mazeCellPos = (Vector2)mazeCellPos + new Vector2(1, 0);
+                Destroy (mazeCell);
+                Destroy (rightCopy);
+                Destroy (bottomCopy);
+                Destroy (bottomRightCopy);
             }
         }
 
-        
-        
         //some useful code, please don't delete it
         // for (int i = 0; i < randomNumberOfCells; i++)
         // {
